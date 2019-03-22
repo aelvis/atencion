@@ -66,8 +66,8 @@ export class AtencionComponent implements OnInit {
 			}
 		);
 	}
-	crearCita(dni_ruc,nombre,direccion,monto,descripcion){
-		this._usuarioService.crearCitaService(dni_ruc,nombre,direccion,monto,descripcion).subscribe(
+	crearCita(dni_ruc,nombre,direccion,monto,descripcion,pago_tipo){
+		this._usuarioService.crearCitaService(dni_ruc,nombre,direccion,monto,descripcion,pago_tipo).subscribe(
 			res => {
 				if(res["mensaje"].terminar){
 				  	localStorage.clear();
@@ -90,5 +90,28 @@ export class AtencionComponent implements OnInit {
 		this.usuario = [];
 		this.comprobar = false;
 		$('#abrirmodal').modal('hide');
+	}
+	eliminarCitaUsuario(codigo_aleatorio){
+		this._usuarioService.eliminarCitaService(codigo_aleatorio).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].codigo == "success"){
+						this.showSuccess("Alerta","Eliminado");
+						this.obtenerProducto();
+					}else{
+						this.showError("Alerta","Internet Lento, volver a Intentarlo");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);
+	}
+	editarUsuario(){
+		
 	}
 }

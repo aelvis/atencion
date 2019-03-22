@@ -1,7 +1,40 @@
 <nav-component></nav-component>
 <br>
-<h1 class="h3 mb-3 font-weight-normal text-center" style="color: red" (click)="abrirModal()">Atención</h1>
-
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="h3 mb-3 font-weight-normal text-center" style="color: red" (click)="abrirModal()">Atención</h1>
+			<table class="table">
+			  <thead class="thead-light">
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">Editar</th>
+			      <th scope="col">Documento</th>
+			      <th scope="col">Nombre</th>
+			      <th scope="col">Monto</th>
+			      <th scope="col">Tipo Pago</th>
+			      <th>Emitir Recibo</th>
+			      <th scope="col">Eliminar</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr *ngFor="let aten of atencion; index as i">
+			      <th scope="row">{{i+1}}</th>
+			      <th><button class="btn btn-info" (clikc)="editarUsuario(aten.id_cita)">Editar</button></th>
+			      <td>{{aten.dni_ruc}}</td>
+			      <td>{{aten.nombre}}</td>
+			      <td>S/. {{aten.monto}}</td>
+			      <td>{{aten.tipo_pago}}</td>
+			      <td *ngIf="aten.estado_id == 1"><button class="btn btn-danger">Recibo Emitido</button></td>
+			      <td *ngIf="aten.estado_id == 2"><button class="btn btn-success">Emitir Recibo</button></td>
+			      <td *ngIf="aten.estado_id == 2" (click)="eliminarCitaUsuario(aten.id_cita)">Eliminar</td>
+			      <td *ngIf="aten.estado_id == 1">Finalizado</td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+	</div>
+</div>
 <div class="modal fade" id="abrirmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
@@ -9,11 +42,11 @@
       	<div *ngIf="comprobar == true">
       		<div class="form-group">
       			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
-			    <input type="text" class="form-control" #dni_ruc value="{{usuario?.dni_ruc}}">
+			    <input type="text" class="form-control" #dni_ruc value="{{usuario?.dni_ruc}}" disabled>
 			</div>
 			<div class="form-group">
 				<small id="emailHelp" class="form-text text-muted">Nombre.</small>
-			    <input type="text" class="form-control" #nombre value="{{usuario?.nombre}}">
+			    <input type="text" class="form-control" #nombre value="{{usuario?.nombre}}" disabled>
 			</div>
 			<div class="form-group">
 				<small id="emailHelp" class="form-text text-muted">Dirección.</small>
@@ -23,11 +56,15 @@
 				<small id="emailHelp" class="form-text text-muted">Monto.</small>
 			    <input type="number" class="form-control" #monto >
 			</div>
+			<select class="form-control" #pago_tipo>
+				<option value="Tarjeta">Tarjeta</option>
+				<option value="Efectivo">Efectivo</option>
+			</select>
 			<div class="form-group">
 				<small id="emailHelp" class="form-text text-muted">Descripción.</small>
 			    <textarea class="form-control" #descripcion rows="3"></textarea>
 			</div>
-			<button class="btn btn-primary btn_block" (click)="crearCita(dni_ruc.value,nombre.value,direccion.value,monto.value,descripcion.value)">Crear Cita</button>
+			<button class="btn btn-primary btn_block" (click)="crearCita(dni_ruc.value,nombre.value,direccion.value,monto.value,descripcion.value,pago_tipo.value)">Crear Cita</button>
       	</div>
       	<div *ngIf="comprobar == false">
       		<div class="form-group">
