@@ -58,4 +58,22 @@ export class UsuarioService{
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/eliminarCita', params, {headers: headers});
 	}
+	editarUsuarioCita(codigo_aleatorio){
+		let params = new HttpParams();
+		params = params.append('codigo_aleatorio', codigo_aleatorio);
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/obtenerEditarCita', params, {headers: headers});
+	}
+	mandarDatosCitaEditar(cdox,dni_ruc,nombre,direccion,monto,descripcion,pago_tipo){
+		let params = new HttpParams();
+		params = params.append('cdox', cdox);
+		params = params.append('dni_ruc', dni_ruc);
+		params = params.append('nombre', nombre);
+		params = params.append('direccion', direccion);
+		params = params.append('monto', monto);
+		params = params.append('descripcion', descripcion);
+		params = params.append('pago_tipo', pago_tipo);
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/editarUsuarioCita', params, {headers: headers});
+	}
 }

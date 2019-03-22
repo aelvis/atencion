@@ -11,8 +11,13 @@ export class AtencionComponent implements OnInit {
   public atencion;
   public comprobar:boolean;
   public usuario;
+  public usuario_editar;
+  public normal;
+  public normal_public;
+  public comprobar_nuevo:boolean;
   constructor(private toastr: ToastrService, private _usuarioService: UsuarioService, private _router: Router) { 
   	this.comprobar = false;
+  	this.comprobar_nuevo = false;
   }
 
 	ngOnInit(){
@@ -112,9 +117,51 @@ export class AtencionComponent implements OnInit {
 		);
 	}
 	editarUsuario(id){
-		$('#abrirmodalEditarUsuario').modal('show');
+		this._usuarioService.editarUsuarioCita(id).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].usuario){
+						this.comprobar_nuevo = false;
+						$('#abrirmodalEditarUsuario').modal('show');
+						this.usuario_editar = res["mensaje"].usuario;
+					}else{
+						this.showError("Alerta","Internet Lento, volver a Intentarlo");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);	
+	}
+	actualizarUsuarioEstadoEditar(id,dni_ruc,nombre,direccion,monto,descripcion,pago_tipo){
+		this._usuarioService.mandarDatosCitaEditar(id,dni_ruc,nombre,direccion,monto,descripcion,pago_tipo).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].codigo == 'success'){
+						this.normal_public = "";
+						this.normal = "";
+						this.usuario_editar = "";
+						this.cerrarModalEditarUsuario();
+						this.obtenerProducto();
+					}else{
+						this.showError("Alerta","Internet Lento, volver a Intentarlo");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);
 	}
 	cerrarModalEditarUsuario(){
+		this.comprobar_nuevo = true;
 		$('#abrirmodalEditarUsuario').modal('hide');
 	}
 }
