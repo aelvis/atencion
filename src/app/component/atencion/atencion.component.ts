@@ -111,7 +111,10 @@ export class AtencionComponent implements OnInit {
 			}
 		);
 	}
-	editarUsuario(){
-		
+	editarUsuario(id){
+		$('#abrirmodalEditarUsuario').modal('show');
+	}
+	cerrarModalEditarUsuario(){
+		$('#abrirmodalEditarUsuario').modal('hide');
 	}
 }

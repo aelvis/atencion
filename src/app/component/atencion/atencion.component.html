@@ -26,7 +26,8 @@
 			      <td>S/. {{aten.monto}}</td>
 			      <td>{{aten.tipo_pago}}</td>
 			      <td *ngIf="aten.estado_id == 1"><button class="btn btn-danger">Recibo Emitido</button></td>
-			      <td *ngIf="aten.estado_id == 2"><button class="btn btn-success">Emitir Recibo</button></td>
+			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0"><button class="btn btn-success">Emitir Recibo</button></td>
+			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length == 0">Agregar un Tipo de Pago</td>
 			      <td *ngIf="aten.estado_id == 2" (click)="eliminarCitaUsuario(aten.id_cita)">Eliminar</td>
 			      <td *ngIf="aten.estado_id == 1">Finalizado</td>
 			    </tr>
@@ -75,6 +76,23 @@
       </div>
       <div class="modal-footer">
         <button (click)="cerrarModal()" class="btn btn-primary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="abrirmodalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<div>
+      		<div class="form-group">
+			    <input type="text" class="form-control">
+			    <small id="emailHelp" class="form-text text-muted">Holi</small>
+			</div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModalEditarUsuario()" class="btn btn-primary">Cerrar</button>
       </div>
     </div>
   </div>
