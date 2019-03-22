@@ -35,4 +35,10 @@ export class UsuarioService{
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/obtenerAtencionDiaria', params, {headers: headers});
 	}
+	buscarDni(dni){
+		let params = new HttpParams();
+		params = params.append('dni_ruc', dni);
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/buscarDni', params, {headers: headers});
+	}
 }

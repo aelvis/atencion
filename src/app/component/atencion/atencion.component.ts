@@ -9,7 +9,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AtencionComponent implements OnInit {
   public atencion;
-  constructor(private toastr: ToastrService, private _usuarioService: UsuarioService, private _router: Router) { }
+  public comprobar:boolean;
+  public usuario;
+  constructor(private toastr: ToastrService, private _usuarioService: UsuarioService, private _router: Router) { 
+  	this.comprobar = false;
+  }
 
 	ngOnInit(){
 		this.obtenerProducto();
@@ -39,5 +43,33 @@ export class AtencionComponent implements OnInit {
 			}
 		);
 	}
+	abrirModal(){
+		$('#abrirmodal').modal('show');
+	}
+	buscarPorDni(dni){
+		this._usuarioService.buscarDni(dni).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].dni){
+						this.comprobar = true;
+						this.usuario = res["mensaje"].dni;
+					}else{
+						this.showError("Alerta","Ingresar un DNI existente");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);
+	}
 
+	cerrarModal(){
+		this.usuario = [];
+		this.comprobar = false;
+		$('#abrirmodal').modal('hide');
+	}
 }

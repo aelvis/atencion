@@ -1,3 +1,44 @@
 <nav-component></nav-component>
 <br>
-<h1 class="h3 mb-3 font-weight-normal text-center" style="color: red">Atención</h1>
+<h1 class="h3 mb-3 font-weight-normal text-center" style="color: red" (click)="abrirModal()">Atención</h1>
+
+<div class="modal fade" id="abrirmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<div *ngIf="comprobar == true">
+      		<div class="form-group">
+      			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
+			    <input type="text" class="form-control" #dni_ruc value="{{usuario?.dni_ruc}}">
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Nombre.</small>
+			    <input type="text" class="form-control" #nombre value="{{usuario?.nombre}}">
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Dirección.</small>
+			    <input type="text" class="form-control" #direccion value="{{usuario?.direccion}}">
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Monto.</small>
+			    <input type="number" class="form-control" #monto >
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Descripción.</small>
+			    <textarea class="form-control" #descripcion rows="3"></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary btn_block" (click)="crearCita(dni_ruc.value,nombre.value,direccion.value,monto.value,descripcion.value)">Crear Cita</button>
+      	</div>
+      	<div *ngIf="comprobar == false">
+      		<div class="form-group">
+			    <input type="text" class="form-control" #buscar_dni (keyup.enter)="buscarPorDni(buscar_dni.value)">
+			    <small id="emailHelp" class="form-text text-muted">Ingresar Documento.</small>
+			</div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModal()" class="btn btn-primary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
