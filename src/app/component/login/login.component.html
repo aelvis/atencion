@@ -1,0 +1,27 @@
+<form class="form-signin" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="text-center mb-4">
+    <img src="../../assets/img/login/admin_login.jpg" width="40%" height="auto">
+    <h1 class="h3 mb-3 font-weight-normal tb">Sistema Administrativo</h1>
+  </div>
+  <div class="form-label-group">
+    <input class="form-control" placeholder="Email" type="email" name="email" #email="ngModel" [(ngModel)]="usuario.usuario" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #emailref="ngModel"> 
+    <label for="inputEmail">Email</label>
+    <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)">
+            <div [hidden]="!emailref.errors?.pattern">
+             Email Inválido<br>
+           </div> 
+          </div>
+  </div>
+  <div class="form-label-group">
+    <input class="form-control" placeholder="Password" type="password" name="password" #password="ngModel" [(ngModel)]="usuario.password" required>
+    <label for="inputPassword">Password</label>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Ingresar</button>
+  <div *ngIf="alerta==true">
+    <br>
+    <div class="alert alert-{{codigo}} alert-dismissible fade show" role="alert">
+      {{mensaje}}
+    </div>
+  </div> 
+  <p class="mt-5 mb-3 text-muted text-center">&copy; 2018-2019</p>
+</form>
