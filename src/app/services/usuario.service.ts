@@ -41,4 +41,14 @@ export class UsuarioService{
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/buscarDni', params, {headers: headers});
 	}
+	crearCitaService(dni_ruc,nombre,direccion,monto,descripcion){
+		let params = new HttpParams();
+		params = params.append('dni_ruc', dni_ruc);
+		params = params.append('nombre', nombre);
+		params = params.append('direccion', direccion);
+		params = params.append('monto', monto);
+		params = params.append('descripcion', descripcion);
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/crearCita', params, {headers: headers});
+	}
 }

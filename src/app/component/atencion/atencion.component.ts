@@ -66,7 +66,26 @@ export class AtencionComponent implements OnInit {
 			}
 		);
 	}
-
+	crearCita(dni_ruc,nombre,direccion,monto,descripcion){
+		this._usuarioService.crearCitaService(dni_ruc,nombre,direccion,monto,descripcion).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].codigo == "success"){
+						this.cerrarModal();
+						this.obtenerProducto();
+					}else{
+						this.showError("Alerta","Internet Lento, volver a Intentarlo");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);
+	}
 	cerrarModal(){
 		this.usuario = [];
 		this.comprobar = false;

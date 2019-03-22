@@ -27,7 +27,7 @@
 				<small id="emailHelp" class="form-text text-muted">Descripción.</small>
 			    <textarea class="form-control" #descripcion rows="3"></textarea>
 			</div>
-			<button type="submit" class="btn btn-primary btn_block" (click)="crearCita(dni_ruc.value,nombre.value,direccion.value,monto.value,descripcion.value)">Crear Cita</button>
+			<button class="btn btn-primary btn_block" (click)="crearCita(dni_ruc.value,nombre.value,direccion.value,monto.value,descripcion.value)">Crear Cita</button>
       	</div>
       	<div *ngIf="comprobar == false">
       		<div class="form-group">
