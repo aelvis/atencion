@@ -20,7 +20,7 @@
 			  <tbody>
 			    <tr *ngFor="let aten of atencion; index as i">
 			      <th scope="row">{{i+1}}</th>
-			      <th><button class="btn btn-info" (clikc)="editarUsuario(aten.id_cita)">Editar</button></th>
+			      <th><button class="btn btn-info" (click)="editarUsuario(aten.id_cita)">Editar</button></th>
 			      <td>{{aten.dni_ruc}}</td>
 			      <td>{{aten.nombre}}</td>
 			      <td>S/. {{aten.monto}}</td>
