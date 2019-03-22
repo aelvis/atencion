@@ -15,8 +15,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { InicioComponent} from './component/inicio/inicio.component';
 import { NavAdminComponent} from './component/partial/partial.component';
-import { AtencionComponent } from './atencion/atencion.component';
-import { AtencionEditarComponent } from './atencion-editar/atencion-editar.component';
+import { AtencionComponent } from './component/atencion/atencion.component';
+import { AtencionEditarComponent } from './component/atencion-editar/atencion-editar.component';
 @NgModule({
   declarations: [
     AppComponent,
