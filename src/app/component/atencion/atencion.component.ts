@@ -15,9 +15,13 @@ export class AtencionComponent implements OnInit {
   public normal;
   public normal_public;
   public comprobar_nuevo:boolean;
+  public comprobar_atendido:boolean;
+  public id_cita;
+  public usuario_atendido;
   constructor(private toastr: ToastrService, private _usuarioService: UsuarioService, private _router: Router) { 
   	this.comprobar = false;
   	this.comprobar_nuevo = false;
+  	this.comprobar_atendido = false;
   }
 
 	ngOnInit(){
@@ -163,5 +167,55 @@ export class AtencionComponent implements OnInit {
 	cerrarModalEditarUsuario(){
 		this.comprobar_nuevo = true;
 		$('#abrirmodalEditarUsuario').modal('hide');
+	}
+	abrirModalAgregarAtendido(id_cita){
+		this.id_cita = id_cita;
+		$('#atendido').modal('show');
+	}
+	buscarPorDniAtendido(dni){
+		this._usuarioService.buscarDni(dni).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].dni){
+						this.comprobar_atendido = true;
+						this.usuario_atendido = res["mensaje"].dni;
+					}else{
+						this.showError("Alerta","Ingresar un DNI existente");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);
+	}
+	agregarActualizarUsuarioAtendido(dni,nombre){
+		this._usuarioService.actualizarUsuarioAtendido(this.id_cita,dni,nombre).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].codigo = 'success'){
+						this.cerrarModalAgregarAtendido();
+						this.showSuccess("Alerta","Actualizado");
+						this.obtenerProducto();
+					}else{
+						this.showError("Alerta","Internet Lento, volver a Intentarlo");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);	
+	}
+	cerrarModalAgregarAtendido(){
+		this.id_cita = "";
+		this.comprobar_atendido = false;
+		$('#atendido').modal('hide');
 	}
 }

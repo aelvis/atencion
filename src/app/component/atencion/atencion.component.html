@@ -8,6 +8,7 @@
 			  <thead class="thead-light">
 			    <tr>
 			      <th scope="col">#</th>
+			      <th>Atendido</th>
 			      <th scope="col">Editar</th>
 			      <th scope="col">Documento</th>
 			      <th scope="col">Nombre</th>
@@ -20,13 +21,16 @@
 			  <tbody>
 			    <tr *ngFor="let aten of atencion; index as i">
 			      <th scope="row">{{i+1}}</th>
+			      <th *ngIf="aten.nombre_atendido.length == 0"><button class="btn btn-success" (click)="abrirModalAgregarAtendido(aten.id_cita)">Agregar</button></th>
+			      <th *ngIf="aten.nombre_atendido.length > 0">{{aten.nombre_atendido}}</th>
 			      <th><button class="btn btn-info" (click)="editarUsuario(aten.id_cita)">Editar</button></th>
 			      <td>{{aten.dni_ruc}}</td>
 			      <td>{{aten.nombre}}</td>
 			      <td>S/. {{aten.monto}}</td>
 			      <td>{{aten.tipo_pago}}</td>
 			      <td *ngIf="aten.estado_id == 1"><button class="btn btn-danger">Recibo Emitido</button></td>
-			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0"><button class="btn btn-success">Emitir Recibo</button></td>
+			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length > 0"><button class="btn btn-success">Emitir Recibo</button></td>
+			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length == 0">Agregar Atendido</td>
 			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length == 0">Agregar un Tipo de Pago</td>
 			      <td *ngIf="aten.estado_id == 2" (click)="eliminarCitaUsuario(aten.id_cita)">Eliminar</td>
 			      <td *ngIf="aten.estado_id == 1">Finalizado</td>
@@ -140,6 +144,34 @@
       </div>
       <div class="modal-footer">
         <button (click)="cerrarModalEditarUsuario()" class="btn btn-primary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="atendido" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<div *ngIf="comprobar_atendido == true">
+      		<div class="form-group">
+      			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
+			    <input type="text" class="form-control" #dni_ruc_atendido value="{{usuario_atendido?.dni_ruc}}" disabled>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Nombre.</small>
+			    <input type="text" class="form-control" #nombre_atendido value="{{usuario_atendido?.nombre}}" disabled>
+			</div>
+			<button class="btn btn-primary btn-block" (click)="agregarActualizarUsuarioAtendido(dni_ruc_atendido.value,nombre_atendido.value)">Agregar Pasciente</button>
+      	</div>
+      	<div *ngIf="comprobar_atendido == false">
+      		<div class="form-group">
+			    <input type="text" class="form-control" #buscar_dni (keyup.enter)="buscarPorDniAtendido(buscar_dni.value)">
+			    <small id="emailHelp" class="form-text text-muted">Ingresar Documento.</small>
+			</div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModalAgregarAtendido()" class="btn btn-primary">Cerrar</button>
       </div>
     </div>
   </div>
