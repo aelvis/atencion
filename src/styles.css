@@ -1,1 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+.loader {
+  font-size: 20px;
+  margin: 20% auto;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation: asd 1.3s infinite linear;
+  animation: asd 1.3s infinite linear;
+}
+@-webkit-keyframes asd {
+  0%,
+  100% {
+    box-shadow: 0em -3em 0em 0.2em red, 2em -2em 0 0em red, 3em 0em 0 -0.5em red, 2em 2em 0 -0.5em red, 0em 3em 0 -0.5em red, -2em 2em 0 -0.5em red, -3em 0em 0 -0.5em red, -2em -2em 0 0em red;
+  }
+  12.5% {
+    box-shadow: 0em -3em 0em 0em red, 2em -2em 0 0.2em red, 3em 0em 0 0em red, 2em 2em 0 -0.5em red, 0em 3em 0 -0.5em red, -2em 2em 0 -0.5em red, -3em 0em 0 -0.5em red, -2em -2em 0 -0.5em red;
+  }
+  25% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 0em red, 3em 0em 0 0.2em red, 2em 2em 0 0em red, 0em 3em 0 -0.5em red, -2em 2em 0 -0.5em red, -3em 0em 0 -0.5em red, -2em -2em 0 -0.5em red;
+  }
+  37.5% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 -0.5em red, 3em 0em 0 0em red, 2em 2em 0 0.2em red, 0em 3em 0 0em red, -2em 2em 0 -0.5em red, -3em 0em 0 -0.5em red, -2em -2em 0 -0.5em red;
+  }
+  50% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 -0.5em red, 3em 0em 0 -0.5em red, 2em 2em 0 0em red, 0em 3em 0 0.2em red, -2em 2em 0 0em red, -3em 0em 0 -0.5em red, -2em -2em 0 -0.5em red;
+  }
+  62.5% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 -0.5em red, 3em 0em 0 -0.5em red, 2em 2em 0 -0.5em red, 0em 3em 0 0em red, -2em 2em 0 0.2em red, -3em 0em 0 0em red, -2em -2em 0 -0.5em red;
+  }
+  75% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 -0.5em red, 3em 0em 0 -0.5em red, 2em 2em 0 -0.5em red, 0em 3em 0 -0.5em red, -2em 2em 0 0em red, -3em 0em 0 0.2em red, -2em -2em 0 0em red;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0em 0em red, 2em -2em 0 -0.5em red, 3em 0em 0 -0.5em red, 2em 2em 0 -0.5em red, 0em 3em 0 -0.5em red, -2em 2em 0 0em red, -3em 0em 0 0em red, -2em -2em 0 0.2em red;
+  }
+}
+@keyframes asd {
+  0%,
+  100% {
+    box-shadow: 0em -3em 0em 0.2em red, 2em -2em 0 0em red, 3em 0em 0 -0.5em red, 2em 2em 0 -0.5em red, 0em 3em 0 -0.5em red, -2em 2em 0 -0.5em red, -3em 0em 0 -0.5em red, -2em -2em 0 0em red;
+  }
+  12.5% {
+    box-shadow: 0em -3em 0em 0em red, 2em -2em 0 0.2em red, 3em 0em 0 0em red, 2em 2em 0 -0.5em red, 0em 3em 0 -0.5em red, -2em 2em 0 -0.5em red, -3em 0em 0 -0.5em red, -2em -2em 0 -0.5em red;
+  }
+  25% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 0em red, 3em 0em 0 0.2em red, 2em 2em 0 0em red, 0em 3em 0 -0.5em red, -2em 2em 0 -0.5em red, -3em 0em 0 -0.5em red, -2em -2em 0 -0.5em red;
+  }
+  37.5% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 -0.5em red, 3em 0em 0 0em red, 2em 2em 0 0.2em red, 0em 3em 0 0em red, -2em 2em 0 -0.5em red, -3em 0em 0 -0.5em red, -2em -2em 0 -0.5em red;
+  }
+  50% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 -0.5em red, 3em 0em 0 -0.5em red, 2em 2em 0 0em red, 0em 3em 0 0.2em red, -2em 2em 0 0em red, -3em 0em 0 -0.5em red, -2em -2em 0 -0.5em red;
+  }
+  62.5% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 -0.5em red, 3em 0em 0 -0.5em red, 2em 2em 0 -0.5em red, 0em 3em 0 0em red, -2em 2em 0 0.2em red, -3em 0em 0 0em red, -2em -2em 0 -0.5em red;
+  }
+  75% {
+    box-shadow: 0em -3em 0em -0.5em red, 2em -2em 0 -0.5em red, 3em 0em 0 -0.5em red, 2em 2em 0 -0.5em red, 0em 3em 0 -0.5em red, -2em 2em 0 0em red, -3em 0em 0 0.2em red, -2em -2em 0 0em red;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0em 0em red, 2em -2em 0 -0.5em red, 3em 0em 0 -0.5em red, 2em 2em 0 -0.5em red, 0em 3em 0 -0.5em red, -2em 2em 0 0em red, -3em 0em 0 0em red, -2em -2em 0 0.2em red;
+  }
+}
