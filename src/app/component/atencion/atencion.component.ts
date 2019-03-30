@@ -18,10 +18,12 @@ export class AtencionComponent implements OnInit {
   public comprobar_atendido:boolean;
   public id_cita;
   public usuario_atendido;
+  public inicio:boolean;
   constructor(private toastr: ToastrService, private _usuarioService: UsuarioService, private _router: Router) { 
   	this.comprobar = false;
   	this.comprobar_nuevo = false;
   	this.comprobar_atendido = false;
+  	this.inicio = true;
   }
 
 	ngOnInit(){
@@ -34,6 +36,7 @@ export class AtencionComponent implements OnInit {
     	this.toastr.error(mensaje, titulo);
   	}
 	obtenerProducto(){
+		this.inicio = false;
 		this._usuarioService.obtenerAtencion().subscribe(
 			res => {
 				if(res["mensaje"].terminar){
@@ -42,13 +45,16 @@ export class AtencionComponent implements OnInit {
 				}else{
 					if(res["mensaje"].atencion){
 						this.atencion = res["mensaje"].atencion;
+						this.inicio = true;
 					}else{
-						this.atencion = "No hay productos...";
+						this.showError("Alerta","No se encuentran Atenciones");
+						this.inicio = true;
 					}
 				}
 			},
 			error => {
-				this.showSuccess("Alerta","Error de Internet");
+				this.showError("Alerta","Error de Internet");
+				this.inicio = true;
 			}
 		);
 	}

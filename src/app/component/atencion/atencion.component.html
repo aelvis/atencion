@@ -2,7 +2,7 @@
 <br>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12" *ngIf="inicio == true">
 			<h1 class="h3 mb-3 font-weight-normal text-center" style="color: red" (click)="abrirModal()">Atención</h1>
 			<table class="table">
 			  <thead class="thead-light">
@@ -32,12 +32,13 @@
 			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length > 0"><button class="btn btn-success">Datos Completados</button></td>
 			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length == 0">Agregar Atendido</td>
 			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length == 0">Agregar un Tipo de Pago</td>
-			      <td *ngIf="aten.estado_id == 2" (click)="eliminarCitaUsuario(aten.id_cita)">Eliminar</td>
+			      <td *ngIf="aten.estado_id == 2" (click)="eliminarCitaUsuario(aten.id_cita)"><button class="btn btn-danger">Eliminar</button></td>
 			      <td *ngIf="aten.estado_id == 1">Finalizado</td>
 			    </tr>
 			  </tbody>
 			</table>
 		</div>
+		<div class="col-md-12" *ngIf="inicio == false"><div class="loader" id="loader">Loading...</div></div>
 	</div>
 </div>
 <div class="modal fade" id="abrirmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -76,6 +77,41 @@
 			    <input type="text" class="form-control" #buscar_dni (keyup.enter)="buscarPorDni(buscar_dni.value)">
 			    <small id="emailHelp" class="form-text text-muted">Ingresar Documento.</small>
 			</div>
+
+
+			<h5>Agregar Manual</h5>
+      		<div class="form-group">
+      			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
+			    <input type="text" class="form-control" #dni_ruc_nul>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Nombre.</small>
+			    <input type="text" class="form-control" #nombre_nul>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Dirección.</small>
+			    <input type="text" class="form-control" #direccion_nul>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Monto.</small>
+			    <input type="number" class="form-control" #monto_nul >
+			</div>
+			<select class="form-control" #pago_tipo_nul>
+				<option value="Tarjeta">Tarjeta</option>
+				<option value="Efectivo">Efectivo</option>
+			</select>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Descripción.</small>
+			    <textarea class="form-control" #descripcion_nul rows="3"></textarea>
+			</div>
+			<button class="btn btn-primary btn-block" (click)="crearCita(dni_ruc_nul.value,nombre_nul.value,direccion_nul.value,monto_nul.value,descripcion_nul.value,pago_tipo_nul.value)">Crear Cita</button>
+
+
+
+
+
+
+
       	</div>
       </div>
       <div class="modal-footer">
@@ -90,11 +126,11 @@
       <div class="modal-body"  *ngIf="comprobar_nuevo == false">
       		<div class="form-group">
       			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
-			    <input type="text" class="form-control" #dni_ruc_update value="{{usuario_editar?.dni_ruc}}" disabled >
+			    <input type="text" class="form-control" #dni_ruc_update value="{{usuario_editar?.dni_ruc}}" >
 			</div>
 			<div class="form-group">
 				<small id="emailHelp" class="form-text text-muted">Nombre.</small>
-			    <input type="text" class="form-control" #nombre_update value="{{usuario_editar?.nombre}}" disabled >
+			    <input type="text" class="form-control" #nombre_update value="{{usuario_editar?.nombre}}" >
 			</div>
 			<div class="form-group">
 				<small id="emailHelp" class="form-text text-muted">Dirección.</small>
@@ -131,7 +167,7 @@
 			direccion_update.value,
 			monto_update.value,
 			descripcion_update.value,
-			normal_public)">Crear Cita</button>
+			normal_public)">Actualizar Cita</button>
 			<button *ngIf="usuario_editar?.tipo_pago.length == 0" class="btn btn-warning btn-block" 
 			(click)="actualizarUsuarioEstadoEditar(
 			usuario_editar?.id_cita,
@@ -140,7 +176,7 @@
 			direccion_update.value,
 			monto_update.value,
 			descripcion_update.value,
-			normal)">Crear Cita</button>
+			normal)">Actualizar Cita</button>
       </div>
       <div class="modal-footer">
         <button (click)="cerrarModalEditarUsuario()" class="btn btn-primary">Cerrar</button>
@@ -168,6 +204,19 @@
 			    <input type="text" class="form-control" #buscar_dni (keyup.enter)="buscarPorDniAtendido(buscar_dni.value)">
 			    <small id="emailHelp" class="form-text text-muted">Ingresar Documento.</small>
 			</div>
+
+			<h5>Agregar Manual</h5>
+      		<div class="form-group">
+      			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
+			    <input type="text" class="form-control" #dni_ruc_atendido_lok>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">Nombre.</small>
+			    <input type="text" class="form-control" #nombre_atendido_lok>
+			</div>
+			<button class="btn btn-primary btn-block" (click)="agregarActualizarUsuarioAtendido(dni_ruc_atendido_lok.value,nombre_atendido_lok.value)">Agregar Pasciente</button>
+
+
       	</div>
       </div>
       <div class="modal-footer">
