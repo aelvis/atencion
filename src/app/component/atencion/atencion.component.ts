@@ -232,9 +232,7 @@ export class AtencionComponent implements OnInit {
 				  	this._router.navigate(['/login']);
 				}else{
 					if(res["mensaje"].codigo == 'success'){
-						this.comprobar_nuevo = false;
-						$('#abrirmodalEditarUsuario').modal('show');
-						this.usuario_editar = res["mensaje"].usuario;
+						this.obtenerProducto();
 					}else{
 						this.showError("Alerta","Internet Lento, volver a Intentarlo");
 					}
