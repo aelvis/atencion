@@ -84,4 +84,10 @@ export class UsuarioService{
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/actualizarUsuarioAtencion', params, {headers: headers});
 	}
+	mandarCajaActualizarUsuarioAtendido(cdox){
+		let params = new HttpParams();
+		params = params.append('cdox', cdox);
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/mandarCajaUsuarioAtencion', params, {headers: headers});
+	}
 }

@@ -224,4 +224,25 @@ export class AtencionComponent implements OnInit {
 		this.comprobar_atendido = false;
 		$('#atendido').modal('hide');
 	}
+	mandarCaja(id){
+		this._usuarioService.mandarCajaActualizarUsuarioAtendido(id).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].codigo == 'success'){
+						this.comprobar_nuevo = false;
+						$('#abrirmodalEditarUsuario').modal('show');
+						this.usuario_editar = res["mensaje"].usuario;
+					}else{
+						this.showError("Alerta","Internet Lento, volver a Intentarlo");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);	
+	}
 }

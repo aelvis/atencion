@@ -29,11 +29,11 @@
 			      <td>S/. {{aten.monto}}</td>
 			      <td>{{aten.tipo_pago}}</td>
 			      <td *ngIf="aten.estado_id == 1"><button class="btn btn-danger">Recibo Emitido</button></td>
-			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length > 0"><button class="btn btn-success">Datos Completados</button></td>
+			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length > 0"><button class="btn btn-success">Mandar a Caja</button></td>
 			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length == 0">Agregar Atendido</td>
 			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length == 0">Agregar un Tipo de Pago</td>
 			      <td *ngIf="aten.estado_id == 2" (click)="eliminarCitaUsuario(aten.id_cita)"><button class="btn btn-danger">Eliminar</button></td>
-			      <td *ngIf="aten.estado_id == 1">Finalizado</td>
+			      <td *ngIf="aten.estado_id == 3">Finalizado</td>
 			    </tr>
 			  </tbody>
 			</table>
