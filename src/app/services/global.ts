@@ -1,3 +1,3 @@
 export var GLOBAL = {
-	url: 'https://elvisalcantara.com/far/index.php'
+	url: 'https://api.consultoriovasquez.com/index.php'
 }
