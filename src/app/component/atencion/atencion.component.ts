@@ -198,8 +198,8 @@ export class AtencionComponent implements OnInit {
 			}
 		);
 	}
-	agregarActualizarUsuarioAtendido(dni,nombre){
-		this._usuarioService.actualizarUsuarioAtendido(this.id_cita,dni,nombre).subscribe(
+	agregarActualizarUsuarioAtendido(codigo,nombre,peso,talla,temperatura,fr,fc,dni,porque_cita){
+		this._usuarioService.actualizarUsuarioAtendido(this.id_cita,codigo,nombre,peso,talla,temperatura,fr,fc,dni,porque_cita).subscribe(
 			res => {
 				if(res["mensaje"].terminar){
 				  	localStorage.clear();
@@ -217,7 +217,7 @@ export class AtencionComponent implements OnInit {
 			error => {
 				this.showError("Alerta","Error de Internet");
 			}
-		);	
+		);
 	}
 	cerrarModalAgregarAtendido(){
 		this.id_cita = "";

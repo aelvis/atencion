@@ -76,11 +76,18 @@ export class UsuarioService{
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/editarUsuarioCita', params, {headers: headers});
 	}
-	actualizarUsuarioAtendido(cdox,dni,nombre){
+	actualizarUsuarioAtendido(cdox,codigo,nombre,peso,talla,temperatura,fr,fc,dni,porque_cita){
 		let params = new HttpParams();
 		params = params.append('cdox', cdox);
-		params = params.append('dni', dni);
+		params = params.append('codigo', codigo);
 		params = params.append('nombre', nombre);
+		params = params.append('peso', peso);
+		params = params.append('talla', talla);
+		params = params.append('temperatura', temperatura);
+		params = params.append('fr', fr);
+		params = params.append('fc', fc);
+		params = params.append('dni', dni);
+		params = params.append('porque_cita', porque_cita);
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/actualizarUsuarioAtencion', params, {headers: headers});
 	}

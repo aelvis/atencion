@@ -77,8 +77,6 @@
 			    <input type="text" class="form-control" #buscar_dni (keyup.enter)="buscarPorDni(buscar_dni.value)">
 			    <small id="emailHelp" class="form-text text-muted">Ingresar Documento.</small>
 			</div>
-
-
 			<h5>Agregar Manual</h5>
       		<div class="form-group">
       			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
@@ -105,13 +103,6 @@
 			    <textarea class="form-control" #descripcion_nul rows="3"></textarea>
 			</div>
 			<button class="btn btn-primary btn-block" (click)="crearCita(dni_ruc_nul.value,nombre_nul.value,direccion_nul.value,monto_nul.value,descripcion_nul.value,pago_tipo_nul.value)">Crear Cita</button>
-
-
-
-
-
-
-
       	</div>
       </div>
       <div class="modal-footer">
@@ -188,35 +179,44 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body">
-      	<div *ngIf="comprobar_atendido == true">
-      		<div class="form-group">
-      			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
-			    <input type="text" class="form-control" #dni_ruc_atendido value="{{usuario_atendido?.dni_ruc}}" disabled>
-			</div>
-			<div class="form-group">
-				<small id="emailHelp" class="form-text text-muted">Nombre.</small>
-			    <input type="text" class="form-control" #nombre_atendido value="{{usuario_atendido?.nombre}}" disabled>
-			</div>
-			<button class="btn btn-primary btn-block" (click)="agregarActualizarUsuarioAtendido(dni_ruc_atendido.value,nombre_atendido.value)">Agregar Pasciente</button>
-      	</div>
       	<div *ngIf="comprobar_atendido == false">
       		<div class="form-group">
-			    <input type="text" class="form-control" #buscar_dni (keyup.enter)="buscarPorDniAtendido(buscar_dni.value)">
-			    <small id="emailHelp" class="form-text text-muted">Ingresar Documento.</small>
-			</div>
-
-			<h5>Agregar Manual</h5>
-      		<div class="form-group">
-      			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
-			    <input type="text" class="form-control" #dni_ruc_atendido_lok>
+      			<small id="emailHelp" class="form-text text-muted">Código de Paciente</small>
+			    <input type="number" class="form-control" #codigo_paciente>
 			</div>
 			<div class="form-group">
-				<small id="emailHelp" class="form-text text-muted">Nombre.</small>
-			    <input type="text" class="form-control" #nombre_atendido_lok>
+				<small id="emailHelp" class="form-text text-muted">DNI</small>
+			    <input type="text" class="form-control" #dni_lol>
 			</div>
-			<button class="btn btn-primary btn-block" (click)="agregarActualizarUsuarioAtendido(dni_ruc_atendido_lok.value,nombre_atendido_lok.value)">Agregar Pasciente</button>
-
-
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">NOMBRE</small>
+			    <input type="text" class="form-control" #nombre_atendido>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">PESO</small>
+			    <input type="text" class="form-control" #peso>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">TALLA</small>
+			    <input type="text" class="form-control" #talla>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">TEMPERATURA</small>
+			    <input type="text" class="form-control" #temperatura>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">FR</small>
+			    <input type="text" class="form-control" #fr>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">FC</small>
+			    <input type="text" class="form-control" #fc>
+			</div>
+			<div class="form-group">
+				<small id="emailHelp" class="form-text text-muted">DESCRIPCIÓN DE LA CITA</small>
+			    <textarea cols="30" rows="10" #descripcion_lkl class="form-control" ></textarea>
+			</div>
+			<button class="btn btn-primary btn-block" (click)="agregarActualizarUsuarioAtendido(codigo_paciente.value,nombre_atendido.value,peso.value,talla.value,temperatura.value,fr.value,fc.value,dni_lol.value,descripcion_lkl.value)">Agregar Pasciente</button>
       	</div>
       </div>
       <div class="modal-footer">
