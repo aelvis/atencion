@@ -1,3 +1,61 @@
-<p>
-  atencion-editar works!
-</p>
+<nav-component></nav-component>
+<br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="text-center" (click)="agregarModalPaciente()">Pacientes</h2>
+			<input class="form-control" type="text" placeholder="Buscar por Nombre ...." #nombre_buscar id="buscar_nombre" (keyup.enter)="buscarPorNombre(nombre_buscar.value)"><br>
+			<table class="table">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">Nombre</th>
+			      <th scope="col">Dni</th>
+			      <th scope="col">Dirección</th>
+			      <th scope="col">Codigo Historia</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr *ngFor="let pac of paciente; index as i">
+			      <th scope="row">{{i+1}}</th>
+			      <td><input type="text" #nombre_xd value="{{pac.nombre}}" class="form-control" (keyup.enter)="editarPacientes(pac.id_pacientes, nombre_xd.value,'1')"></td>
+			      <td><input type="text" #dni_xd value="{{pac.dni}}" class="form-control" (keyup.enter)="editarPacientes(pac.id_pacientes, dni_xd.value,'2')"></td>
+			      <td><input type="text" #direccion value="{{pac.direccion}}" class="form-control" (keyup.enter)="editarPacientes(pac.id_pacientes, direccion.value,'3')"></td>
+			      <td><input type="text" #codigo value="{{pac.codigo}}" class="form-control" (keyup.enter)="editarPacientes(pac.id_pacientes, codigo.value,'4')"></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+		<div class="col-md-12" *ngIf="inicio == false"><div class="loader" id="loader">Loading...</div></div>
+	</div>
+</div>
+<div class="modal fade" id="paciente_datos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Nombre</label>
+		    <input type="text" class="form-control" #nombre_text id="nombre_text">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">Dni</label>
+		    <input type="number" class="form-control" #dni_text id="dni_text">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Dirección</label>
+		    <input type="text" class="form-control" #direccion_test id="direccion_text">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Código</label>
+		    <input type="text" class="form-control" #codigo_text id="codigo_text">
+		    <small id="emailHelp" class="form-text text-muted">Historial Clinico</small>
+		  </div>
+		  
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModalAgregarPaciente()" class="btn btn-primary">CERRAR</button>
+        <button type="submit" class="btn btn-info" (click)="agregarPacienteBd(nombre_text.value,dni_text.value,direccion_test.value,codigo_text.value)">AGREGAR PACIENTE</button>
+      </div>
+    </div>
+  </div>
+</div>

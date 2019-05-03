@@ -35,11 +35,56 @@ export class UsuarioService{
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/obtenerAtencionDiaria', params, {headers: headers});
 	}
+	obtenerPacientes(){
+		let params = new HttpParams();
+		params = params.append('nuevo', 'nuevo');
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/obtenerPacientes', params, {headers: headers});
+	}
+	agregarPacientes(nombre_text,dni_text,direccion_test,codigo_text){
+		let params = new HttpParams();
+		params = params.append('nombre_text', nombre_text);
+		params = params.append('dni_text', dni_text);
+		params = params.append('direccion_test', direccion_test);
+		params = params.append('codigo_text', codigo_text);
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/agregarPacientes', params, {headers: headers});
+	}
+	editarPacientes(id,actualizar,codigo){
+		let params = new HttpParams();
+		if(codigo == '1'){
+			params = params.append('actualizar', actualizar);
+			params = params.append('columna', 'nombre');
+			params = params.append('cdox', id);
+		}
+		if(codigo == '2'){
+			params = params.append('actualizar', actualizar);
+			params = params.append('columna', 'dni');
+			params = params.append('cdox', id);
+		}
+		if(codigo == '3'){
+			params = params.append('actualizar', actualizar);
+			params = params.append('columna', 'direccion');
+			params = params.append('cdox', id);
+		}if(codigo == '4'){
+			params = params.append('actualizar', actualizar);
+			params = params.append('columna', 'codigo');
+			params = params.append('cdox', id);
+		}
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/actualizarPaciente', params, {headers: headers});
+	}
 	buscarDni(dni){
 		let params = new HttpParams();
 		params = params.append('dni_ruc', dni);
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/buscarDni', params, {headers: headers});
+	}
+	buscarPaciente(nombre){
+		let params = new HttpParams();
+		params = params.append('nombre', nombre);
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/buscarPacienteNombre', params, {headers: headers});
 	}
 	crearCitaService(dni_ruc,nombre,direccion,monto,descripcion,pago_tipo){
 		let params = new HttpParams();
@@ -76,20 +121,24 @@ export class UsuarioService{
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/editarUsuarioCita', params, {headers: headers});
 	}
-	actualizarUsuarioAtendido(cdox,codigo,nombre,peso,talla,temperatura,fr,fc,dni,porque_cita){
+	actualizarUsuarioAtendido(cdox,peso,talla,temperatura,fr,fc,porque_cita){
 		let params = new HttpParams();
 		params = params.append('cdox', cdox);
-		params = params.append('codigo', codigo);
-		params = params.append('nombre', nombre);
 		params = params.append('peso', peso);
 		params = params.append('talla', talla);
 		params = params.append('temperatura', temperatura);
 		params = params.append('fr', fr);
 		params = params.append('fc', fc);
-		params = params.append('dni', dni);
 		params = params.append('porque_cita', porque_cita);
 		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
 		return this._http.post(this.url+'/atencion/atencion/actualizarUsuarioAtencion', params, {headers: headers});
+	}
+	actualizarUsuarioAtendidoGeneral(cdox,id_paciente){
+		let params = new HttpParams();
+		params = params.append('cdox', cdox);
+		params = params.append('paciente', id_paciente);
+		let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': this.getToken()});
+		return this._http.post(this.url+'/atencion/atencion/actualizarUsuarioAtencionGeneral', params, {headers: headers});
 	}
 	mandarCajaActualizarUsuarioAtendido(cdox){
 		let params = new HttpParams();

@@ -19,11 +19,14 @@ export class AtencionComponent implements OnInit {
   public id_cita;
   public usuario_atendido;
   public inicio:boolean;
+  public paciente:any = [];
+  public verificar_tabla:boolean;
   constructor(private toastr: ToastrService, private _usuarioService: UsuarioService, private _router: Router) { 
   	this.comprobar = false;
   	this.comprobar_nuevo = false;
   	this.comprobar_atendido = false;
   	this.inicio = true;
+  	this.verificar_tabla = true;
   }
 
 	ngOnInit(){
@@ -178,6 +181,10 @@ export class AtencionComponent implements OnInit {
 		this.id_cita = id_cita;
 		$('#atendido').modal('show');
 	}
+	abrirModalAgregarAtendidoDatos(id_cita){
+		this.id_cita = id_cita;
+		$('#atendido_datos').modal('show');
+	}
 	buscarPorDniAtendido(dni){
 		this._usuarioService.buscarDni(dni).subscribe(
 			res => {
@@ -198,8 +205,29 @@ export class AtencionComponent implements OnInit {
 			}
 		);
 	}
-	agregarActualizarUsuarioAtendido(codigo,nombre,peso,talla,temperatura,fr,fc,dni,porque_cita){
-		this._usuarioService.actualizarUsuarioAtendido(this.id_cita,codigo,nombre,peso,talla,temperatura,fr,fc,dni,porque_cita).subscribe(
+	agregarActualizarUsuarioAtendido(peso,talla,temperatura,fr,fc,porque_cita){
+		this._usuarioService.actualizarUsuarioAtendido(this.id_cita,peso,talla,temperatura,fr,fc,porque_cita).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].codigo = 'success'){
+						this.cerrarModalAgregarAtendidoCerrar();
+						this.showSuccess("Alerta","Actualizado");
+						this.obtenerProducto();
+					}else{
+						this.showError("Alerta","Internet Lento, volver a Intentarlo");
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+			}
+		);
+	}
+	agregarActualizarUsuarioAtendidoGeneral(id_paciente){
+		this._usuarioService.actualizarUsuarioAtendidoGeneral(this.id_cita,id_paciente).subscribe(
 			res => {
 				if(res["mensaje"].terminar){
 				  	localStorage.clear();
@@ -224,6 +252,11 @@ export class AtencionComponent implements OnInit {
 		this.comprobar_atendido = false;
 		$('#atendido').modal('hide');
 	}
+	cerrarModalAgregarAtendidoCerrar(){
+		this.id_cita = "";
+		this.comprobar_atendido = false;
+		$('#atendido_datos').modal('hide');
+	}
 	mandarCaja(id){
 		this._usuarioService.mandarCajaActualizarUsuarioAtendido(id).subscribe(
 			res => {
@@ -242,5 +275,30 @@ export class AtencionComponent implements OnInit {
 				this.showError("Alerta","Error de Internet");
 			}
 		);	
+	}
+	buscarPorNombre(nombre_buscar){
+		this.verificar_tabla = false;
+		this.paciente = [];
+		this._usuarioService.buscarPaciente(nombre_buscar).subscribe(
+			res => {
+				if(res["mensaje"].terminar){
+				  	localStorage.clear();
+				  	this._router.navigate(['/login']);
+				}else{
+					if(res["mensaje"].paciente){
+						this.paciente = res["mensaje"].paciente;
+						this.verificar_tabla = true;
+					}else{
+						this.showError("Alerta","No se encuentran Pacientes");
+						this.paciente = [];
+						this.verificar_tabla = true;
+					}
+				}
+			},
+			error => {
+				this.showError("Alerta","Error de Internet");
+				this.verificar_tabla = true;
+			}
+		);		
 	}
 }

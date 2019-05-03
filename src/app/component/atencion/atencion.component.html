@@ -8,29 +8,31 @@
 			  <thead class="thead-light">
 			    <tr>
 			      <th scope="col">#</th>
-			      <th>Atendido</th>
-			      <th scope="col">Editar</th>
-			      <th scope="col">Documento</th>
-			      <th scope="col">Nombre</th>
-			      <th scope="col">Monto</th>
-			      <th scope="col">Tipo Pago</th>
-			      <th>Evaluar</th>
-			      <th scope="col">Eliminar</th>
+			      <th>DATOS</th>
+			      <th>PACIENTE</th>
+			      <th scope="col">EDITAR</th>
+			      <th scope="col">DOCUMENTO</th>
+			      <th scope="col">NOMBRE</th>
+			      <th scope="col">MONTO</th>
+			      <th scope="col">PAGO</th>
+			      <th>EVALUAR</th>
+			      <th scope="col">ELIMINAR</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    <tr *ngFor="let aten of atencion; index as i">
 			      <th scope="row">{{i+1}}</th>
-			      <th *ngIf="aten.nombre_atendido.length == 0"><button class="btn btn-success" (click)="abrirModalAgregarAtendido(aten.id_cita)">Agregar</button></th>
-			      <th *ngIf="aten.nombre_atendido.length > 0">{{aten.nombre_atendido}}</th>
-			      <th><button class="btn btn-info" (click)="editarUsuario(aten.id_cita)">Editar</button></th>
+			      <td *ngIf="aten.peso.length == 0"><button class="btn btn-info" (click)="abrirModalAgregarAtendidoDatos(aten.id_cita)">Datos</button></td>
+			      	<td *ngIf="aten.peso.length > 0">Datos Agregados</td>
+			      <td *ngIf='aten.nombre_atendido == null'><button class="btn btn-success" (click)="abrirModalAgregarAtendido(aten.id_cita)">Agregar</button></td>
+			      <td *ngIf="aten.nombre_atendido">{{aten.nombre_atendido}}</td>
+			      <td><button class="btn btn-info" (click)="editarUsuario(aten.id_cita)">Editar</button></td>
 			      <td>{{aten.dni_ruc}}</td>
 			      <td>{{aten.nombre}}</td>
 			      <td>S/. {{aten.monto}}</td>
 			      <td>{{aten.tipo_pago}}</td>
 			      <td *ngIf="aten.estado_id == 1"><button class="btn btn-danger">Recibo Emitido</button></td>
-			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length > 0"><button class="btn btn-success" (click)="mandarCaja(aten.id_cita)">Mandar a Caja</button></td>
-			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.nombre_atendido.length == 0">Agregar Atendido</td>
+			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length > 0 && aten.peso.length > 0 && aten.dni_atendico.length > 0"><button class="btn btn-success" (click)="mandarCaja(aten.id_cita)">Mandar a Caja</button></td>
 			      <td *ngIf="aten.estado_id == 2 && aten.tipo_pago.length == 0">Agregar un Tipo de Pago</td>
 			      <td *ngIf="aten.estado_id == 2" (click)="eliminarCitaUsuario(aten.id_cita)"><button class="btn btn-danger">Eliminar</button></td>
 			      <td *ngIf="aten.estado_id == 3">Finalizado</td>
@@ -47,7 +49,7 @@
       <div class="modal-body">
       	<div *ngIf="comprobar == true">
       		<div class="form-group">
-      			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
+      			<small id="emailHelp" class="form-text text-muted">DNI.</small>
 			    <input type="text" class="form-control" #dni_ruc value="{{usuario?.dni_ruc}}" disabled>
 			</div>
 			<div class="form-group">
@@ -79,7 +81,7 @@
 			</div>
 			<h5>Agregar Manual</h5>
       		<div class="form-group">
-      			<small id="emailHelp" class="form-text text-muted">Tipo Documento.</small>
+      			<small id="emailHelp" class="form-text text-muted">DNI.</small>
 			    <input type="text" class="form-control" #dni_ruc_nul>
 			</div>
 			<div class="form-group">
@@ -180,18 +182,45 @@
     <div class="modal-content">
       <div class="modal-body">
       	<div *ngIf="comprobar_atendido == false">
-      		<div class="form-group">
-      			<small id="emailHelp" class="form-text text-muted">Código de Paciente</small>
-			    <input type="number" class="form-control" #codigo_paciente>
-			</div>
 			<div class="form-group">
-				<small id="emailHelp" class="form-text text-muted">DNI</small>
-			    <input type="text" class="form-control" #dni_lol>
+			    <input type="text" class="form-control" #buscar_dni (keyup.enter)="buscarPorNombre(buscar_dni.value)">
+			    <small id="emailHelp" class="form-text text-muted">BUSCAR POR NOMBRE</small>
 			</div>
-			<div class="form-group">
-				<small id="emailHelp" class="form-text text-muted">NOMBRE</small>
-			    <input type="text" class="form-control" #nombre_atendido>
-			</div>
+			<table class="table" *ngIf="verificar_tabla == true">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">DNI</th>
+			      <th scope="col">NOMBRE</th>
+			      <th scope="col">CODIGO</th>
+			      <th scope="col">AGREGAR</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr *ngFor="let pac of paciente; index as i">
+			      <th scope="row">{{i+1}}</th>
+			      <td>{{pac.dni}}</td>
+			      <td>{{pac.nombre}}</td>
+			      <td>{{pac.codigo}}</td>
+			      <td><button class="btn btn-success" (click)="agregarActualizarUsuarioAtendidoGeneral(pac.id_pacientes)">Agregar</button></td>
+			    </tr>
+			  </tbody>
+			</table>
+			<div class="col-md-12" *ngIf="verificar_tabla == false"><div class="loader" id="loader">Loading...</div></div>
+			<!--<button class="btn btn-primary btn-block" (click)="agregarActualizarUsuarioAtendido(nombre_atendido.value,peso.value,talla.value,temperatura.value,fr.value,fc.value,dni_lol.value,descripcion_lkl.value)">Agregar Pasciente</button>-->
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModalAgregarAtendido()" class="btn btn-primary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="atendido_datos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<div *ngIf="comprobar_atendido == false">
 			<div class="form-group">
 				<small id="emailHelp" class="form-text text-muted">PESO</small>
 			    <input type="text" class="form-control" #peso>
@@ -216,11 +245,11 @@
 				<small id="emailHelp" class="form-text text-muted">DESCRIPCIÓN DE LA CITA</small>
 			    <textarea cols="30" rows="10" #descripcion_lkl class="form-control" ></textarea>
 			</div>
-			<button class="btn btn-primary btn-block" (click)="agregarActualizarUsuarioAtendido(codigo_paciente.value,nombre_atendido.value,peso.value,talla.value,temperatura.value,fr.value,fc.value,dni_lol.value,descripcion_lkl.value)">Agregar Pasciente</button>
+			<button class="btn btn-primary btn-block" (click)="agregarActualizarUsuarioAtendido(peso.value,talla.value,temperatura.value,fr.value,fc.value,descripcion_lkl.value)">Agregar Datos</button>
       	</div>
       </div>
       <div class="modal-footer">
-        <button (click)="cerrarModalAgregarAtendido()" class="btn btn-primary">Cerrar</button>
+        <button (click)="cerrarModalAgregarAtendidoCerrar()" class="btn btn-primary">Cerrar</button>
       </div>
     </div>
   </div>

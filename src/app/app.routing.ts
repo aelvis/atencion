@@ -14,7 +14,7 @@ const appRoutes: Routes = [
 	{path: 'login', component: LoginComponent},
 	{path: 'inicio', component: AtencionComponent, canActivate: [AdminGuard]},
 	{path: 'atencion', component: AtencionComponent, canActivate: [AdminGuard]},
-	{path: 'atencion/:id_atencion', component: AtencionEditarComponent, canActivate: [AdminGuard]},
+	{path: 'usuario', component: AtencionEditarComponent, canActivate: [AdminGuard]},
 	{path: '**', component: LoginComponent},
 ];
 
